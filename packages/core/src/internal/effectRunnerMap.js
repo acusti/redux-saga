@@ -225,6 +225,7 @@ function runCancelEffect(env, taskOrTasks, cb, { task }) {
 
 function runAllEffect(env, effects, cb, { digestEffect }) {
   const effectId = currentEffectId
+  effects = typeof effects.toArray === 'function' ? effects.toArray() : effects
   const keys = Object.keys(effects)
   if (keys.length === 0) {
     cb(is.array(effects) ? [] : {})
@@ -239,6 +240,7 @@ function runAllEffect(env, effects, cb, { digestEffect }) {
 
 function runRaceEffect(env, effects, cb, { digestEffect }) {
   const effectId = currentEffectId
+  effects = typeof effects.toArray === 'function' ? effects.toArray() : effects
   const keys = Object.keys(effects)
   const response = is.array(effects) ? createEmptyArray(keys.length) : {}
   const childCbs = {}
